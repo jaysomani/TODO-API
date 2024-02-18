@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <div class="filter-container">
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+        <ul id="todo-list" class="todo-list">
+            <!-- Todo items will be dynamically added here -->
+        </ul>
+        <div class="pagination">
+            <button id="prev-page" class="btn">Previous</button>
+            <button id="next-page" class="btn">Next</button>
+        </div>
+        <div class="add-todo">
+            <input type="text" id="todo-title" placeholder="Enter task name">
+            <input type="text" id="todo-description" placeholder="Enter task description">
+            <button id="btn-create" class="btn">Add Todo</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
