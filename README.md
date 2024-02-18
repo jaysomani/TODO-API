@@ -2,6 +2,12 @@
 
 This is a Todo API project developed using Golang and ScyllaDB, providing basic CRUD operations and pagination functionality for the list endpoint.
 
+
+
+https://github.com/jaysomani/TODO-API/assets/69755312/c87b6d7a-73d7-4f10-960b-9ed9d2fcc532
+
+
+
 ## Objective
 
 The objective of this project was to create a robust Todo API that allows users to manage their tasks efficiently. The API supports creating, reading, updating, and deleting Todo items for individual users. Additionally, pagination functionality is implemented to retrieve Todo items in batches, with support for filtering based on status.
