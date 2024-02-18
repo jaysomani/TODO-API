@@ -17,6 +17,15 @@ The objective of this project was to create a robust Todo API that allows users 
 ![basic flow drawio](https://github.com/jaysomani/TODO-API/assets/69755312/d2969231-4c1d-4b94-a074-7b89df3b64fe)
 
 
+## Basic architecture diagram 
+
++------------------+          +-----------------+         +-----------------+
+|                  |          |                 |         |                 |
+|    User Client   |  HTTP/   |    Todo API     |   HTTP/ |    ScyllaDB     |
+|                  |  HTTPS   |    Server       |   HTTPS |    Database     |
++------------------+          +-----------------+         +-----------------+
+
+
 ## Getting Started
 
 To clone and use this project on your local machine, follow these steps:
