@@ -28,7 +28,7 @@ To clone and use this project on your local machine, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/jaysomani/todo-api.git
+https://github.com/jaysomani/TODO-API.git
 ```
 ```bash
 cd todo-api
