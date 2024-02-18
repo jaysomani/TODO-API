@@ -20,10 +20,11 @@ The objective of this project was to create a robust Todo API that allows users 
 ## Basic architecture diagram 
 
 +------------------+          +-----------------+         +-----------------+
-|                  |          |                 |         |                 |
-|    User Client   |  HTTP/   |    Todo API     |   HTTP/ |    ScyllaDB     |
-|                  |  HTTPS   |    Server       |   HTTPS |    Database     |
+|                  |  HTTP/   |                 |   HTTP/ |                 |
+|    User Client   |  HTTPS   |    Todo API     |   HTTPS |    ScyllaDB     |
+|                  |--------->|    Server       |<--------|    Database     |
 +------------------+          +-----------------+         +-----------------+
+
 
 
 ## Getting Started
