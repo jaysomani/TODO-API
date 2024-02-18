@@ -18,13 +18,7 @@ The objective of this project was to create a robust Todo API that allows users 
 
 
 ## Basic architecture diagram 
-
-+------------------+          +-----------------+         +-----------------+
-|                  |  HTTP/   |                 |   HTTP/ |                 |
-|    User Client   |  HTTPS   |    Todo API     |   HTTPS |    ScyllaDB     |
-|                  |--------->|    Server       |<--------|    Database     |
-+------------------+          +-----------------+         +-----------------+
-
+![ARCHI drawio](https://github.com/jaysomani/TODO-API/assets/69755312/7033f11f-3d9a-4c2a-a092-546e185d2e51)
 
 
 ## Getting Started
