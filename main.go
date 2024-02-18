@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gocql/gocql"
@@ -22,6 +24,10 @@ type Todo struct {
 var session *gocql.Session
 
 func main() {
+
+	log.SetOutput(os.Stdout)
+
+	log.Println("sarting...")
 	var err error
 	session, err = connectToScyllaDB()
 	if err != nil {
@@ -41,8 +47,8 @@ func main() {
 
 // Function to connect to ScyllaDB
 func connectToScyllaDB() (*gocql.Session, error) {
-	cluster := gocql.NewCluster("node-0.gce-asia-south-1.4d4447d04a2f1fff1a7e.clusters.scylla.cloud", "node-1.gce-asia-south-1.4d4447d04a2f1fff1a7e.clusters.scylla.cloud", "node-2.gce-asia-south-1.4d4447d04a2f1fff1a7e.clusters.scylla.cloud")
-	cluster.Authenticator = gocql.PasswordAuthenticator{Username: "scylla", Password: "qdW1fB3ieU6zvxa"}
+	var cluster = gocql.NewCluster("node-0.gce-asia-south-1.1dee5732be0ae28fa763.clusters.scylla.cloud", "node-1.gce-asia-south-1.1dee5732be0ae28fa763.clusters.scylla.cloud", "node-2.gce-asia-south-1.1dee5732be0ae28fa763.clusters.scylla.cloud")
+	cluster.Authenticator = gocql.PasswordAuthenticator{Username: "scylla", Password: "84bROzPv7kolEey"}
 	cluster.PoolConfig.HostSelectionPolicy = gocql.DCAwareRoundRobinPolicy("GCE_ASIA_SOUTH_1")
 
 	session, err := cluster.CreateSession()
@@ -122,16 +128,26 @@ func createTodoHandler(w http.ResponseWriter, r *http.Request) {
 func readTodosHandler(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 	status := queryParams.Get("status")
+	log.Print("value of status:", status)
 	query := "SELECT id, user_id, title, description, status, created, updated FROM todo.todos"
+
 	if status != "" {
-		query += " WHERE status = ?"
-	}
-	var iter *gocql.Iter
-	if status != "" {
-		iter = session.Query(query, status).Iter()
+		if status == "completed" {
+			query = "SELECT * FROM todo.todos WHERE status = 'completed' ALLOW FILTERING;"
+			log.Print("done completed")
+		} else if status == "pending" {
+			query = "SELECT * FROM todo.todos WHERE status = 'pending' ALLOW FILTERING;"
+			log.Print("done pending")
+		} else {
+			http.Error(w, "Invalid status value", http.StatusBadRequest)
+			return
+		}
 	} else {
-		iter = session.Query(query).Iter()
+		query += " ALLOW FILTERING"
 	}
+
+	iter := session.Query(query).Iter()
+
 	var todos []Todo
 	for {
 		var todo Todo
@@ -140,10 +156,13 @@ func readTodosHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		todos = append(todos, todo)
 	}
+
 	if err := iter.Close(); err != nil {
+		log.Println("Error closing iterator:", err)
 		http.Error(w, "Failed to read TODO items: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 	json.NewEncoder(w).Encode(todos)
 }
 

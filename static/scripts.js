@@ -1,11 +1,16 @@
+
+
 // Function to fetch all TODO items from the server and display them on the webpage
 async function displayAllTodos() {
     try {
         const response = await fetch('/todos/read');
         const todos = await response.json();
+        // const statusFilter = document.getElementById('status-filter');
+        // const selectedStatus = statusFilter.value;
         
+        // const todos = await fetchTodosByStatus(selectedStatus);
         const todoList = document.getElementById('todo-list');
-        todoList.innerHTML = ''; // Clear the existing todo items
+        todoList.innerHTML = '';
         
         todos.forEach(todo => {
             const todoItem = document.createElement('li');
@@ -22,7 +27,7 @@ async function displayAllTodos() {
             const editButton = document.createElement('button');
             editButton.textContent = '✏️';
             editButton.classList.add('edit-btn');
-            editButton.addEventListener('click', () => {
+            editButton.addEventListener('click', async () => {
                 editTodoItem(todo);
             });
             
